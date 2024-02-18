@@ -1,0 +1,24 @@
+{
+  "name": "vacaybuddy-backend",
+  "version": "1.0.0",
+  "description": "VacayBuddy backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Juyee Sabade",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^2.2.0",
+    "csurf": "^1.11.0",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1"
+  }
+}
