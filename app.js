@@ -113,7 +113,7 @@ app.use(authRoutes);
 
 const server = http.createServer(app);
 
-mongoose.connect('mongodb+srv://dbuser:IUEa2wMOXENvwTC5@cluster0.8ipib0n.mongodb.net/bookings?retryWrites=true&w=majority')
+mongoose.connect('')
 .then(result => {
     console.log('Connected');
     app.listen(8080);
