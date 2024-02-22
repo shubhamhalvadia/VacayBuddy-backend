@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 exports.getSignup = (req, res, next) => {
     let message = req.flash('error');
-    //console.log(message);
+    console.log(message);
     if(message.length>0) {
         message=message[0];
     }
@@ -42,7 +42,7 @@ exports.postSignup = (req, res, next) => {
             name:name,
             email:email,
             password:hashedPasswd,
-            imageUrl:'images/user/profile.png',
+            imageUrl:'images/user/profile.jpg',
             city:'',
             country:'',
             address:'',
@@ -51,9 +51,16 @@ exports.postSignup = (req, res, next) => {
         });
         return user.save();
     })
+    // .then(result => {
+    //     res.redirect('/login');
+    // })
     .then(result => {
-        res.redirect('/login');
-    })
+        console.log(result);
+        res.status(201).json({
+          message: 'User created successfully!',
+          post: result
+        });
+      })
     .catch(err => {
         const error = new Error(err);
         error.httpStatusCode = 500;
