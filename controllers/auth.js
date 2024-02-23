@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const { validationResult } = require('express-validator');
 
 exports.getSignup = (req, res, next) => {
     let message = req.flash('error');
@@ -21,6 +22,7 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
+    console.log(req);
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;

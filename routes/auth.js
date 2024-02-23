@@ -10,6 +10,7 @@ const User = require('../models/user');
 
 // router.get('/signup', notAuth,authController.getSignup);
 
+// router.post('/signup',authController.postSignup);
 router.post('/signup',
     [
     check('email')

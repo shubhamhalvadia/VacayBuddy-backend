@@ -41,7 +41,8 @@ const adminRoutes = require('./routes/admin');
 const bookingRoutes = require('./routes/booking');
 const authRoutes = require('./routes/auth');
 
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
+
 // app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('image'));
 // app.use(express.static(path.join(__dirname,'public')));
 // app.use('/images',express.static(path.join(__dirname,'images')));
