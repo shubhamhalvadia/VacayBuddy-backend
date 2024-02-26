@@ -20,6 +20,7 @@ router.post('/signup',
         return User.findOne({email:value})
         .then(userDoc => {
             if(userDoc) {
+                //console.log('Sorry, this email already exists!');
                 return Promise.reject('Sorry, this email already exists!');
             }
         });
@@ -37,6 +38,8 @@ router.post('/signup',
     })
     ],
     authController.postSignup);
+
+router.post('/login', authController.login);
 
 
 module.exports = router;

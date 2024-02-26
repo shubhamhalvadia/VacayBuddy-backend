@@ -110,7 +110,7 @@ app.use((req, res, next) => {
 
 app.use('/admin',adminRoutes);
 app.use(bookingRoutes);
-app.use(authRoutes);
+app.use('/auth', authRoutes);
 
 
 const server = http.createServer(app);
