@@ -20,8 +20,7 @@ router.post('/signup',
         return User.findOne({email:value})
         .then(userDoc => {
             if(userDoc) {
-                //console.log('Sorry, this email already exists!');
-                return Promise.reject('Sorry, this email already exists!');
+                return Promise.reject('Sorry, this email already exists');
             }
         });
     })
@@ -30,6 +29,7 @@ router.post('/signup',
     .trim()
     .isLength({min:5})
     .isAlphanumeric(),
+    body('name', 'Name should not be empty').trim().not().isEmpty(),
     body('confirmPassword').trim().custom((value,{ req }) => {
         if(value!==req.body.password) {
             throw new Error('Passwords have to match');

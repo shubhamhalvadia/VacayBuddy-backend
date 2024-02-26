@@ -1,3 +1,4 @@
+require('dotenv').config();
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -10,14 +11,6 @@ const multer = require('multer');
 
 const app = express();
 
-// const MONGODB_URI = process.env.mongo_uri;
-// const store = new MongoDBStore({
-//     uri:MONGODB_URI,
-//     collection:'sessions'
-// });
-
-// const csrfProtection = csrf();
-// app.use(flash());
 
 // const fileStorage = multer.diskStorage({
 //     destination: (req,file,cb) => {
@@ -113,9 +106,14 @@ app.use(bookingRoutes);
 app.use('/auth', authRoutes);
 
 
-const server = http.createServer(app);
+app.use((error, req, res, next) => {
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({ message: message, data: data });
+});
 
-mongoose.connect('')
+mongoose.connect(process.env.mongoose_connect)
 .then(result => {
     console.log('Connected');
     app.listen(8080);
