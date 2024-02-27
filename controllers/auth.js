@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const { redisConnect } = require('../util/redis');
 
 exports.getSignup = (req, res, next) => {
     let message = req.flash('error');
@@ -114,4 +115,35 @@ exports.login = (req, res, next) => {
         }
         next(err);
     });
+};
+
+exports.logout = (req, res, next) => {
+    const authHeader = req.get('Authorization');
+    const token = authHeader.split(' ')[1];
+    //const token = 'sometoken';
+    let tokensArray;
+    let updatedTokens;
+    let rclient;
+    redisConnect
+        .then(client => {
+            rclient = client;
+            return rclient.get('blacklisttokens');
+        })
+        .then(tokensArr => {
+            tokensArray = JSON.parse(tokensArr);
+            tokensArray.push(token);
+            updatedTokens = JSON.stringify(tokensArray);
+            return rclient.set('blacklisttokens', updatedTokens);
+            
+        })
+        .then(output => {
+            res.status(200).json({
+                status: "logout",
+                message: "Token has been blacklisted"
+            });
+        })
+        .catch(err => {
+            console.log('Token does not exist');
+            next(err);
+        })
 };

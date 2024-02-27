@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const redis = require('redis');
 
 const app = express();
 
@@ -112,6 +113,15 @@ app.use((error, req, res, next) => {
     const data = error.data;
     res.status(status).json({ message: message, data: data });
 });
+
+// redisClient.connect()
+// .then(result => {
+//     app.use(redisClient);
+//     console.log('Connected to redis');
+// })
+// .catch(err => {
+//     console.log(err);
+// });
 
 mongoose.connect(process.env.mongoose_connect)
 .then(result => {
