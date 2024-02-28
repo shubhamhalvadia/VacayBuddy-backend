@@ -49,9 +49,63 @@ app.use((req, res, next) => {
 // app.use(express.static(path.join(__dirname,'public')));
 // app.use('/images',express.static(path.join(__dirname,'images')));
 
+// app.use(session({
+
+//     secret:'my secret',
+//     resave:false,
+//     saveUninitialized:false,
+//     store:store
+// }));
+
+// app.use(csrfProtection);
+
+// app.use((req,res,next) => {
+//     res.locals.userIsLoggedIn = req.session.userIsLoggedIn;
+//     // res.locals.authorIsLoggedIn = req.session.authorIsLoggedIn;
+//     // res.locals.notifications = req.session.notifications;
+//     res.locals.csrfToken = req.csrfToken();
+//     next();
+// });
+
+// app.use((req,res,next)=> {
+//     if(!req.session.user) {
+//         return next();
+//     }
+//     else if(req.session.user) {
+//         User.findById(req.session.user._id)
+//             .then(user => {
+//                 if(!user) {
+//                     next();
+//                 }
+//                 req.user=user;
+//                 next();
+//             })
+//             .catch(err => {
+//                 next(new Error(err));
+//             });
+//     }
+
+//     // else if(req.session.author) {
+//     //     Author.findById(req.session.author._id)
+//     //         .then(author => {
+//     //             if(!author) {
+//     //                 next();
+//     //             }
+//     //             req.author=author;
+//     //             next();
+//     //         })
+//     //         .catch(err => {
+//     //             next(new Error(err));
+//     //         });
+//     // }
+// });
+
+
+
 app.use('/admin',adminRoutes);
 app.use(bookingRoutes);
 app.use('/auth', authRoutes);
+
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;
@@ -60,6 +114,14 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
+// redisClient.connect()
+// .then(result => {
+//     app.use(redisClient);
+//     console.log('Connected to redis');
+// })
+// .catch(err => {
+//     console.log(err);
+// });
 
 mongoose.connect(process.env.mongoose_connect)
 .then(result => {
