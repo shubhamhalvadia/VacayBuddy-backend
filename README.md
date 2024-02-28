@@ -116,4 +116,5 @@ npm start
 ```
 
 Expected result on terminal:
+
 ![npm start Expected Result](images/start-terminal-result.png)
