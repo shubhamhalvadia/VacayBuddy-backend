@@ -1,19 +1,18 @@
-name: Docker Image CI for GHCR
+name: Docker Image CI for GHCR # Name of the GitHub Actions workflow
 
-on:
-    push
+on: # Triggers for the workflow
+  push: # Triggers on any push to the repository
 
-jobs:
-    build_and_publish:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: npm install
-              run: npm ci
-            - name: run the unit tests
-              run: echo "npm test"
-            # - name: Build and push the image
-            #   run: |
-            #     docker login --username user.name --password ${{secrets.ACCESS_TOKEN}} ghcr.io
-            #     docker build -t ghcr.io/user.name/arithmetic-service:latest --file Dockerfile .  
-            #     docker push ghcr.io/hbahramian/arithmetic-service:latest 
+jobs: # Jobs to be executed within the workflow
+  build_and_publish: # Name of the job
+    runs-on: ubuntu-latest # Operating system for the job
+
+    steps: # Steps to be executed within the job
+      - name: Checkout code # Step to checkout the repository code
+        uses: actions/checkout@v3 # Using the official action to checkout the code
+        
+      - name: Install dependencies # Step to install npm dependencies
+        run: npm ci # Using npm ci for clean installation of dependencies
+
+      - name: Run unit tests # Step to run unit tests
+        run: echo "npm test" # Placeholder command for running tests (replace with actual test command)
